@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Download, Github, Linkedin, Mail, MapPin, Phone } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Download, Github, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 
 export default function Hero() {
-  const [displayText, setDisplayText] = useState("")
-  const fullText = "Frontend Engineer"
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "Frontend Engineer";
 
   useEffect(() => {
-    let index = 0
+    let index = 0;
     const timer = setInterval(() => {
       if (index < fullText.length) {
-        setDisplayText(fullText.slice(0, index + 1))
-        index++
+        setDisplayText(fullText.slice(0, index + 1));
+        index++;
       } else {
-        clearInterval(timer)
+        clearInterval(timer);
       }
-    }, 100)
+    }, 100);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section
@@ -32,7 +32,10 @@ export default function Hero() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
-                Hello, I'm <span className="text-blue-600 dark:text-blue-400">Shivam Kumar</span>
+                Hello, I'm{" "}
+                <span className="text-blue-600 dark:text-blue-400">
+                  Shivam Kumar
+                </span>
               </h1>
               <div className="text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 h-12">
                 I am a{" "}
@@ -42,19 +45,36 @@ export default function Hero() {
                 </span>
               </div>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
-                Frontend Engineer with 2 years of expertise in building high-performance web applications using React.js
-                and Next.js. Specialized in AWS-integrated solutions that delivered 90% operational efficiency gains.
+                Frontend Engineer with 2 years of expertise in building
+                high-performance web applications using React.js and Next.js.
+                Specialized in AWS-integrated solutions that delivered 90%
+                operational efficiency gains.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume
+              <Button
+                size="lg"
+                className="bg-blue-600 hover:bg-blue-700"
+                asChild
+              >
+                <a
+                  href="https://drive.google.com/file/d/1gMNb6hrjPbCV3grt4TmY0e3z1FPM91tO/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Resume
+                </a>
               </Button>
-              <Button variant="outline" size="lg">
-                <Mail className="mr-2 h-4 w-4" />
-                Get In Touch
+
+              <Button variant="outline" size="lg" asChild>
+                <a
+                  href={`mailto:shivamkumar02517@gmail.com?subject=Let%27s%20Connect&body=Hi%20Shivam%2C%0D%0A%0D%0AI%20came%20across%20your%20profile%20and%20would%20love%20to%20connect.%0D%0A%0D%0ARegards%2C%0D%0A`}
+                >
+                  <Mail className="mr-2 h-4 w-4" />
+                  Get In Touch
+                </a>
               </Button>
             </div>
 
@@ -75,10 +95,22 @@ export default function Hero() {
 
             <div className="flex gap-4">
               <Button variant="outline" size="sm">
-                <Github className="h-4 w-4" />
+                <a
+                  href="https://github.com/kumarshivam04203"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github className="h-4 w-4" />
+                </a>
               </Button>
               <Button variant="outline" size="sm">
-                <Linkedin className="h-4 w-4" />
+                <a
+                  href="https://www.linkedin.com/in/shivamkumar02517/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
               </Button>
             </div>
           </div>
@@ -93,5 +125,5 @@ export default function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
