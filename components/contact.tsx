@@ -17,10 +17,30 @@ export default function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
+    setSubmitMessage(null);
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/whatsapp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || "Failed to send message");
+      }
+      setSubmitMessage("Message sent on WhatsApp successfully!");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (err: any) {
+      setSubmitMessage(err?.message || "Something went wrong");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -203,10 +223,15 @@ export default function Contact() {
                     placeholder="Tell me about your project..."
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full">
+                <Button type="submit" size="lg" className="w-full" disabled={submitting}>
                   <Send className="h-4 w-4 mr-2" />
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </Button>
+                {submitMessage && (
+                  <p className="text-sm text-center text-gray-600 dark:text-gray-300">
+                    {submitMessage}
+                  </p>
+                )}
               </form>
             </CardContent>
           </Card>

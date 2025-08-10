@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github } from "lucide-react"
+import Link from "next/link"
+import { ExternalLink, Github, ArrowRight } from "lucide-react"
 
-export default function Projects() {
+export default function Projects({ limit }: { limit?: number }) {
   const projects = [
     {
       title: "Intelligent Document Processing System",
@@ -63,20 +64,81 @@ export default function Projects() {
         github: "#",
       },
     },
+    {
+      title: "WoodTech Website",
+      role: "Frontend Developer",
+      description:
+        "Built from scratch a fully dynamic website with responsive layout and smooth user experience.",
+      achievements: [
+        "SEO-friendly architecture using SSR/SSG for fast first-load and easy crawling",
+        "Implemented metadata (title, meta description, OpenGraph, Twitter Cards, structured data)",
+        "Performance-optimized with image optimization, lazy loading, and smart bundle splitting",
+        "Mobile-first responsive design across devices",
+        "Accessibility-aware development with semantic HTML and ARIA roles",
+        "Deployed on Vercel with edge caching for low latency and high availability",
+      ],
+      technologies: [
+        "Next.js",
+        "React.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vercel",
+      ],
+      links: {
+        demo: "https://woodtech-website.vercel.app/",
+        github: "#",
+      },
+    },
+    {
+      title: "Gladhand Technology Website",
+      role: "Frontend Developer",
+      description:
+        "Custom-built dynamic site with clean, modular architecture and resume-friendly SEO setup.",
+      achievements: [
+        "SEO-optimized with custom title/meta, OpenGraph/Twitter previews, and schema markup",
+        "Fast & performant via image optimization, code splitting, and lazy loading",
+        "Mobile-first responsive design for smooth performance across devices",
+        "Accessibility-focused using semantic HTML and ARIA roles",
+        "High availability on Vercel leveraging global CDN caching and edge functions",
+      ],
+      technologies: [
+        "Next.js",
+        "React.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vercel",
+      ],
+      links: {
+        demo: "https://gladhand-web-r1kf.vercel.app/",
+        github: "#",
+      },
+    },
   ]
+
+  const visibleProjects = typeof limit === "number" ? projects.slice(0, limit) : projects
 
   return (
     <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Featured Projects</h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Showcasing my expertise in building scalable, high-performance web applications
           </p>
+          {typeof limit === "number" && (
+            <div className="mt-6">
+              <Button asChild variant="ghost" className="inline-flex items-center">
+                <Link href="/projects">
+                  View all projects
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow h-full flex flex-col">
               <CardHeader>
                 <CardTitle className="text-xl text-gray-900 dark:text-white">{project.title}</CardTitle>
@@ -110,19 +172,24 @@ export default function Projects() {
                 </div>
 
                 <div className="flex gap-3 mt-auto">
-                  <Button size="sm" variant="outline" className="flex-1">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Demo
+                  <Button asChild size="sm" variant="outline" className="flex-1">
+                    <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      Demo
+                    </a>
                   </Button>
-                  <Button size="sm" variant="outline" className="flex-1">
-                    <Github className="h-4 w-4 mr-2" />
-                    Code
+                  <Button asChild size="sm" variant="outline" className="flex-1">
+                    <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4 mr-2" />
+                      Code
+                    </a>
                   </Button>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
+        {/* Bottom CTA removed in favor of header link for a cleaner look when limited */}
       </div>
     </section>
   )

@@ -4,8 +4,10 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useRouter } from "next/navigation"
 
 export default function Header() {
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navItems = [
@@ -22,7 +24,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">SK</div>
+          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 cursor-pointer" onClick={() => router.push("/")}>SK</div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
