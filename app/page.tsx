@@ -19,7 +19,7 @@ export default function Home() {
         <About />
         <Skills />
         <Experience />
-        <Projects />
+        <Projects limit={3} />
         <Education />
         <Contact />
       </main>
